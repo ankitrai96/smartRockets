@@ -1,7 +1,12 @@
 var population,
   count=0,
-  lifeSpan=200,
+  lifeSpan=400,
   life, target;
+
+function preload(){
+  img = loadImage('rocket.png');
+}
+
 function setup() {
 
 	createCanvas(600,400);
@@ -17,6 +22,10 @@ function draw() {
   count++;
   fill(0,255,13);
   ellipse(target.x, target.y, 25,25);
+  if(count > 400){
+    count = 0;
+    population = new Population();
+  }
 }
 
 function DNA(){
@@ -55,10 +64,8 @@ function Rocket(){
     push();
     translate(this.pos.x, this.pos.y);
     rotate(this.vel.heading());
-    rectMode(CENTER);
-    fill(235,2,2);
-    noStroke();
-    rect(0,0,25,5);
+    imageMode(CENTER);
+    image(img,0,0,32,52);
     pop();
   }
   this.update = function(){

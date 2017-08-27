@@ -4,7 +4,7 @@ var population, mutationRate=0.01,
   target, generation=1;
 
 function preload(){
-  img = loadImage('rocket.png');
+  img = loadImage('resources/rocket.png');
 }
 
 function setup() {
@@ -29,8 +29,9 @@ function draw() {
   fill(255);
   textAlign(LEFT);  
   text("Generation: " + generation, 10, 360);  
-  text("Population Size: "+popSize, 10, 371);  
-  text("Mutation Rate: "+mutationRate*100+"%", 10, 383);  
+  text("Fuel: " + (lifeSpan-count)+" units", 10, 372);    
+  text("Population Size: "+popSize, 10, 383);  
+  text("Mutation Rate: "+mutationRate*100+"%", 10, 394);  
   
   if(count > lifeSpan){
     population.evaluate();
@@ -159,7 +160,6 @@ function Rocket(dna){
     var d = dist(this.pos.x,this.pos.y,target.x,target.y);
     if(d < 10){
       this.hit = true;
-      // this.fitness *= 10;
     }
       this.applyForce(this.dna.genes[count]);  
       if(!this.hit && !this.crash){
@@ -167,10 +167,10 @@ function Rocket(dna){
         this.pos.add(this.vel);
         this.acc.mult(0);
       }
-      if(this.pos.x>(width-270)/2 && this.pos.x<(width+270)/2 && this.pos.y>140 &&this.pos.y<190){
+      if(this.pos.x>(width-270)/2 && this.pos.x<(width+270)/2 && this.pos.y>145 &&this.pos.y<190){
         this.crash = true;
       }
-      if(this.pos.x<0 || this.pos.x>width || this.pos.y<0 || this.pos.y>height+50){
+      if(this.pos.x<0 || this.pos.x>width || this.pos.y<0 || this.pos.y>height+25){
         this.crash = true;
       }
   }

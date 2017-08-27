@@ -105,6 +105,7 @@ function Rocket(dna){
   this.pos = createVector(width/2,height);
   this.acc = createVector();
   this.fitness = 0;
+  this.hit = false;
   if(dna){
     this.dna = dna;
   } else {
@@ -125,14 +126,20 @@ function Rocket(dna){
     translate(this.pos.x, this.pos.y);
     rotate(this.vel.heading());
     imageMode(CENTER);
-    image(img,0,0,32,52);
+    image(img,0,0,52,32);
     pop();
   }
   this.update = function(){
+    var d = dist(this.pos.x,this.pos.y,target.x,target.y);
+    if(d < 10){
+      this.hit = true;
+      this.pos = target.copy();
+    }
+    if(!this.hit){
+      this.vel.add(this.acc);
+      this.pos.add(this.vel);
+      this.acc.mult(0);
+    }
     this.applyForce(this.dna.genes[count]);
-    this.vel.add(this.acc);
-    this.pos.add(this.vel);
-    this.acc.mult(0);
-    
   }
 }

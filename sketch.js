@@ -1,6 +1,6 @@
-var population, mutationRate=0.01,
-  count=0, maxForce = 0.1,
-  lifeSpan=450, popSize = 25,
+var population, mutationRate=0.03,
+  count=0, maxForce = 0.15,
+  lifeSpan=500, popSize = 25,
   target, generation=1;
 
 function preload(){
@@ -18,6 +18,8 @@ function draw() {
   background(0);
   population.run();
   count++;
+  fill(250,0,0);
+  ellipse(target.x, target.y, 35,35);
   fill(count%255,225,count-255);
   ellipse(target.x, target.y, 25,25);
   textSize(32);
@@ -73,6 +75,9 @@ function DNA(genes){
   }
 }
 
+// Would like to give credits to @shiffman
+// the following lines of code got me hooked to GA
+
 function Population(){
   this.rockets = [];
   for(var i = 0; i<popSize; i++){
@@ -93,7 +98,7 @@ function Population(){
       }
     }
 
-    //normalize
+// normalize
     for(var i=0; i<popSize;i++){
       this.rockets[i].fitness /= maxfit;
     }
